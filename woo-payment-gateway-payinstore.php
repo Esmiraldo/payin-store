@@ -58,7 +58,7 @@ class PayInStore {
 
         return $order_statuses;
     }
-
+    // dnt
     public function add_custom_order_action($actions) {
         if (is_array($actions)) {
             $actions['send_ready_to_collect_email'] = __('Send Ready to Collect Email', 'woocommerce');
@@ -68,11 +68,11 @@ class PayInStore {
 
         return $actions;
     }
-
+    // dnt
     public function process_custom_order_action($order) {
         $order->update_status('wc-ready-to-collect', __('Order is ready to collect', 'woocommerce'));
     }
-
+    // move templates to woocommerce
     public function copy_email_templates_on_activation() {
         $src = plugin_dir_path(__FILE__) . 'templates/emails';
         $dst = plugin_dir_path(__FILE__) . '../woocommerce/templates/emails';
