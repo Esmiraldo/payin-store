@@ -1,0 +1,35 @@
+.papaki-bzn-style .widefat.wc_input_table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .papaki-bzn-style .widefat.wc_input_table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  
+  .papaki-bzn-style .widefat.wc_input_table th:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .papaki-bzn-style .widefat.wc_input_table td {
+    border-top: 1px solid #ddd;
+    padding: 10px 15px;
+  }
+  
+  .papaki-bzn-style .widefat.wc_input_table td:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .papaki-bzn-style .widefat.wc_input_table input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
