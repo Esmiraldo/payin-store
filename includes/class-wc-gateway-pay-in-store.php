@@ -151,28 +151,29 @@ class WC_Gateway_PayInStore extends WC_Payment_Gateway
         return ob_get_clean();
     }
 
-    public function get_formatted_store_schedule()
-    {
-        $days = array(
-            'monday' => __('Monday', 'woocommerce'),
-            'tuesday' => __('Tuesday', 'woocommerce'),
-            'wednesday' => __('Wednesday', 'woocommerce'),
-            'thursday' => __('Thursday', 'woocommerce'),
-            'friday' => __('Friday', 'woocommerce'),
-            'saturday' => __('Saturday', 'woocommerce'),
-            'sunday' => __('Sunday', 'woocommerce'),
-        );
+	public function get_formatted_store_schedule()
+	{
+		$days = array(
+			'monday' => __('Monday', 'woocommerce'),
+			'tuesday' => __('Tuesday', 'woocommerce'),
+			'wednesday' => __('Wednesday', 'woocommerce'),
+			'thursday' => __('Thursday', 'woocommerce'),
+			'friday' => __('Friday', 'woocommerce'),
+			'saturday' => __('Saturday', 'woocommerce'),
+			'sunday' => __('Sunday', 'woocommerce'),
+		);
 
-        $schedule = array();
-        foreach ($days as $key => $label) {
-            if ($this->get_option($key . '_open') === 'yes') {
-                $hours = $this->get_option($key . '_hours');
-                $schedule[] = $label . ': ' . $hours;
-            }
-        }
+		$schedule = array();
+		foreach ($days as $key => $label) {
+			if ($this->get_option($key . '_open') === 'yes') {
+				$hours = esc_attr($this->get_option($key . '_hours'));
+				$schedule[] = esc_html($label) . ': ' . esc_html($hours);
+			}
+		}
 
-        return implode('<br>', $schedule);
-    }
+		return implode('<br>', $schedule);
+	}
+
 
     /**
      * Check If The Gateway Is Available For Use
@@ -248,7 +249,7 @@ class WC_Gateway_PayInStore extends WC_Payment_Gateway
         // Return thankyou redirect
         return array(
             'result' => 'success',
-            'redirect' => $this->get_return_url($order)
+            'redirect' => esc_url($this->get_return_url($order))
         );
     }
 
