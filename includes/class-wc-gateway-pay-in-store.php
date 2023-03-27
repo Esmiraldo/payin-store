@@ -255,29 +255,30 @@ class WC_Gateway_PayInStore extends WC_Payment_Gateway
     /**
      * Output for the order received page.
      */
-    public function thankyou_page()
-    {
-        if ($this->instructions) {
-            echo wpautop(wptexturize($this->instructions));
-        }
-        $order_processing_time = $this->get_option('order_processing_time');
-        if (!empty($order_processing_time)) {
-            echo '<h2>' . __('Order Processing Time', 'woocommerce') . '</h2>';
-            echo wpautop(wptexturize($order_processing_time));
-        }
+	public function thankyou_page()
+	{
+		if ($this->instructions) {
+			echo wpautop(wptexturize(esc_html($this->instructions)));
+		}
+		$order_processing_time = $this->get_option('order_processing_time');
+		if (!empty($order_processing_time)) {
+			echo '<h2>' . esc_html(__('Order Processing Time', 'woocommerce')) . '</h2>';
+			echo wpautop(wptexturize(esc_html($order_processing_time)));
+		}
 
-        
-        $store_address = $this->get_option('store_address');
-        echo '<h2>' . __('Store Opening Hours', 'woocommerce') . '</h2>';
-        echo wpautop(wptexturize($this->get_formatted_store_schedule()));
-        if ($this->get_option('store_maps_enabled') === 'yes') {
-            $google_maps_url = "https://www.google.com/maps?q=" . urlencode($store_address);
-            echo '<a href="' . esc_url($google_maps_url) . '" target="_blank" class="button">' . __('Find Store in Google Maps', 'woocommerce') . '</a>';
-        } else {
-            echo '<p>' . __('You can pick your order from this location ', 'woocommerce') . $store_address .'</p>';
-        }
+		
+		$store_address = $this->get_option('store_address');
+		echo '<h2>' . esc_html(__('Store Opening Hours', 'woocommerce')) . '</h2>';
+		echo wpautop(wptexturize($this->get_formatted_store_schedule()));
+		if ($this->get_option('store_maps_enabled') === 'yes') {
+			$google_maps_url = "https://www.google.com/maps?q=" . urlencode(esc_url($store_address));
+			echo '<a href="' . esc_url($google_maps_url) . '" target="_blank" class="button">' . esc_html(__('Find Store in Google Maps', 'woocommerce')) . '</a>';
+		} else {
+			echo '<p>' . esc_html(__('You can pick your order from this location ', 'woocommerce')) . esc_html($store_address) .'</p>';
+		}
 
-    }
+	}
+
     /**
      * Add content to the WC emails.
      *
@@ -285,27 +286,28 @@ class WC_Gateway_PayInStore extends WC_Payment_Gateway
      * @param bool $sent_to_admin
      * @param bool $plain_text
      */
-    public function email_instructions($order, $sent_to_admin, $plain_text = false)
-    {
-        if ($this->instructions && !$sent_to_admin && $this->id === $order->get_payment_method() && $order->has_status('on-hold')) {
-            echo wpautop(wptexturize($this->instructions)) . PHP_EOL;
-    
-            $order_processing_time = $this->get_option('order_processing_time');
-            if (!empty($order_processing_time)) {
-                echo '<h2>' . __('Order Processing Time', 'woocommerce') . '</h2>';
-                echo wpautop(wptexturize($order_processing_time)) . PHP_EOL;
-            }
-            echo '<h2>' . __('Store Opening Hours', 'woocommerce') . '</h2>';
-            echo wpautop(wptexturize($this->get_formatted_store_schedule()));
-            $store_address = $this->get_option('store_address');
-            if ($this->get_option('store_maps_enabled') === 'yes') {
-                $google_maps_url = "https://www.google.com/maps?q=" . urlencode($store_address);
-                echo '<a href="' . esc_url($google_maps_url) . '" target="_blank" class="button">' . __('Find Store in Google Maps', 'woocommerce') . '</a>';
-            } else {
-                echo '<p>' . __('You can pick your order from this location', 'woocommerce') . $store_address .'</p>';
-            }
-        }
-    }
+	public function email_instructions($order, $sent_to_admin, $plain_text = false)
+	{
+		if ($this->instructions && !$sent_to_admin && $this->id === $order->get_payment_method() && $order->has_status('on-hold')) {
+			echo wpautop(wptexturize($this->instructions)) . PHP_EOL;
+
+			$order_processing_time = $this->get_option('order_processing_time');
+			if (!empty($order_processing_time)) {
+				echo '<h2>' . esc_html__('Order Processing Time', 'woocommerce') . '</h2>';
+				echo wpautop(wptexturize($order_processing_time)) . PHP_EOL;
+			}
+			echo '<h2>' . esc_html__('Store Opening Hours', 'woocommerce') . '</h2>';
+			echo wpautop(wptexturize($this->get_formatted_store_schedule()));
+			$store_address = $this->get_option('store_address');
+			if ($this->get_option('store_maps_enabled') === 'yes') {
+				$google_maps_url = "https://www.google.com/maps?q=" . urlencode($store_address);
+				echo '<a href="' . esc_url($google_maps_url) . '" target="_blank" class="button">' . esc_html__('Find Store in Google Maps', 'woocommerce') . '</a>';
+			} else {
+				echo '<p>' . esc_html__('You can pick your order from this location', 'woocommerce') . esc_html($store_address) .'</p>';
+			}
+		}
+	}
+
     
     
 
